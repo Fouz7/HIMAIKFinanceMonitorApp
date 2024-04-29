@@ -19,6 +19,7 @@ namespace HIMAIKFinanceMonitorApp.Server.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal Balance { get; set; }
 
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Notes { get; set; } = "";
 
         [MaxLength(255)]

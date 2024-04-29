@@ -87,9 +87,13 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
             _context.IncomeData.Add(incomeData);
 
             var transaction = _mapper.Map<Transaction>(incomeDataDto.Transaction);
+            var latestTransaction = await _context.Transactions.OrderByDescending(t => t.CreatedAt).FirstOrDefaultAsync();
+            var latestBalance = latestTransaction != null ? latestTransaction.Balance : 0;
+
+
             transaction.Credit = incomeDataDto.Nominal;
             transaction.Notes = $"Income from {incomeDataDto.Name}";
-            transaction.Balance += transaction.Credit - transaction.Debit;
+            transaction.Balance = latestBalance + transaction.Credit - transaction.Debit;
             transaction.CreatedBy = user.Fullname;
             transaction.CreatedAt = DateTime.Now;
             _context.Transactions.Add(transaction);
@@ -115,11 +119,25 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
                 return NotFound("User not found");
             }
 
+            var balanceDifference = incomeData.Nominal;
+
             incomeData.Name = incomeDataDto.Name;
             incomeData.Nominal = incomeDataDto.Nominal;
             incomeData.TransferDate = incomeDataDto.TransferDate;
             incomeData.CreatedBy = user.Fullname;
             incomeData.CreatedAt = DateTime.Now;
+
+            balanceDifference -= incomeData.Nominal;
+
+            var transaction = await _context.Transactions
+                .Where(t => t.Notes == $"Income from {incomeData.Name}")
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+            if (transaction != null)
+            {
+                transaction.Credit = incomeDataDto.Nominal;
+                transaction.Balance -= balanceDifference;
+            }
 
             try
             {
@@ -147,10 +165,24 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
             var incomeData = await _context.IncomeData.FindAsync(id);
             if (incomeData == null)
             {
-                return NotFound("Data Not FOund");
+                return NotFound("Data Not Found");
             }
 
+            var balanceDifference = incomeData.Nominal;
+
             _context.IncomeData.Remove(incomeData);
+
+            var transaction = await _context.Transactions
+                .Where(t => t.Notes == $"Income from {incomeData.Name}")
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+            if (transaction != null)
+            {
+                transaction.Credit = 0;
+                transaction.Notes = "Deleted Income";
+                transaction.Balance -= balanceDifference;
+            }
+
             await _context.SaveChangesAsync();
 
             return Ok("Delete Successful");

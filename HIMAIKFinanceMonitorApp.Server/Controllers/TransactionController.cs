@@ -52,8 +52,11 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
             }
 
             var transaction = _mapper.Map<Transaction>(transactionDto);
-            transaction.Balance += transaction.Credit - transaction.Debit;
-            transaction.CreatedBy = user.Username;
+            var latestTransaction = await _context.Transactions.OrderByDescending(t => t.CreatedAt).FirstOrDefaultAsync();
+            var latestBalance = latestTransaction != null ? latestTransaction.Balance : 0;
+
+            transaction.Balance = latestBalance + transaction.Credit - transaction.Debit;
+            transaction.CreatedBy = user.Fullname;
             transaction.CreatedAt = DateTime.Now;
 
             _context.Transactions.Add(transaction);
@@ -78,12 +81,24 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
                 return NotFound("User not found");
             }
 
+            var balanceDifference = transaction.Credit - transaction.Debit;
+
             transaction.Debit = transactionDto.Debit;
             transaction.Credit = transactionDto.Credit;
-            transaction.Balance += transaction.Credit - transaction.Debit;
             transaction.Notes = transactionDto.Notes;
-            transaction.CreatedBy = user.Username;
+            transaction.CreatedBy = user.Fullname;
             transaction.CreatedAt = DateTime.Now;
+
+            balanceDifference -= transaction.Credit - transaction.Debit;
+
+            var nextTransaction = await _context.Transactions
+                .Where(t => t.CreatedAt > transaction.CreatedAt)
+                .OrderBy(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+            if (nextTransaction != null)
+            {
+                nextTransaction.Balance -= balanceDifference;
+            }
 
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetTransaction", new { id = transaction.TransactionId }, transaction);
@@ -98,7 +113,18 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
                 return NotFound();
             }
 
+            var balanceDifference = transaction.Credit - transaction.Debit;
+
             _context.Transactions.Remove(transaction);
+
+            var nextTransaction = await _context.Transactions
+                .Where(t => t.CreatedAt > transaction.CreatedAt)
+                .OrderBy(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+            if (nextTransaction != null)
+            {
+                nextTransaction.Balance -= balanceDifference;
+            }
             await _context.SaveChangesAsync();
 
             return Ok("Delete Transaction Success");
