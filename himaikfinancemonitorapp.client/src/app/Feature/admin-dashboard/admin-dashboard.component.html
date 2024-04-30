@@ -1,0 +1,13 @@
+<div class="dashboard-container">
+  <div class="admin-sidebar">
+    <app-admin-sidebar (navigateEvent)="navigate($event)"/>
+  </div>
+  <div class="dashboard-content">
+    <app-dashboard-header/>
+    <div class="side-content">
+      <app-dashboard *ngIf="activeComponent === 'dashboard'"/>
+      <app-income-table *ngIf="activeComponent === 'income'"/>
+      <app-transaction-table *ngIf="activeComponent === 'transaction'"/>
+    </div>
+  </div>
+</div>

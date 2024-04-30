@@ -11,6 +11,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddCors((option) =>
+//{
+//    option.AddPolicy("DevCors", (corsBuilder) =>
+//    {
+//        corsBuilder.WithOrigins("http://localhost:3000", "http://localhost:4200", "http://localhost:8000", "https://localhost:7092")
+//            .AllowAnyHeader()
+//            .AllowAnyMethod();
+//    });
+
+//    option.AddPolicy("ProdCors", (corsBuilder) =>
+//    {
+//        corsBuilder.WithOrigins("https://example.com")
+//            .AllowAnyHeader()
+//            .AllowAnyMethod();
+//    });
+//});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
 string? passwordKeyString = builder.Configuration.GetSection("AppSettings:PasswordKey").Value;
 
@@ -37,13 +59,17 @@ app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("Open");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 else
 {
+    app.UseCors("Open");
     app.UseHttpsRedirection();
 }
+
+app.UseRouting();
 
 app.UseAuthentication();
 

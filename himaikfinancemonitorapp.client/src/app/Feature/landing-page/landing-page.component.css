@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+app-card, app-minister-card {
+  width: 50%;
+  height: 100%;
+}
+
+.container2 {
+    margin: 0 1%;
+}
+
+app-tab-view{
+    width: 100%;
+    height: 100%;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+}
+
+.balance {
+    color: white;
+    background-color: rgba(0, 0, 255, 0.2);
+    border-radius: 12px;
+}
+
+.Income {
+  color: white;
+  background-color: rgba(0, 255, 0, 0.2);
+  border-radius: 12px;
+}
+
+.Outcome {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.minister {
+  color: white;
+  background-color: rgba(165, 42, 42, 0.2);
+  border-radius: 12px;
+}

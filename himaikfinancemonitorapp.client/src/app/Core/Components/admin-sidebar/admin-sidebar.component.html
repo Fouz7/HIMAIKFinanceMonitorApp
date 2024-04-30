@@ -1,0 +1,19 @@
+<div class="sidebar" [ngClass]="{'is-active': sidebarOpen}">
+    <div class="menu">
+        <div class="menu-item" (click)="navigate('dashboard')">
+            <i class="pi pi-table icon-menu"></i>
+            <span *ngIf="sidebarOpen">Dashboard&nbsp;&nbsp;</span>
+        </div>
+        <div class="menu-item" (click)="navigate('income')">
+            <i class="pi pi-money-bill icon-menu"></i>
+            <span *ngIf="sidebarOpen">Income&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <div class="menu-item" (click)="navigate('transaction')">
+            <i class="pi pi-wallet icon-menu"></i>
+            <span *ngIf="sidebarOpen">Transaction</span>
+        </div>
+    </div>
+    <button class="toggle-button" (click)="toggleSidebar()">
+        <i [ngClass]="sidebarOpen ? 'pi pi-arrow-circle-left icon-size' : 'pi pi-arrow-circle-right icon-size'"></i>
+    </button>
+</div>

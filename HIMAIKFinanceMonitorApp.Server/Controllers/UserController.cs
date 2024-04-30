@@ -57,8 +57,6 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
                 return BadRequest("Username already exists");
             }
 
-
-
             var user = _mapper.Map<User>(userDto);
             user.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
             user.CreatedAt = DateTime.Now;
@@ -189,7 +187,6 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
 
             return NoContent();
         }
-
         
     }
 }

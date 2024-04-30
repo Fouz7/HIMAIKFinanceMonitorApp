@@ -1,0 +1,26 @@
+.container1{
+  display:flex;
+  flex-direction:column;
+}
+
+.dashboard-container {
+  display: flex;
+}
+
+.admin-sidebar {
+  flex: 3%;
+}
+
+.dashboard-content {
+  flex: 93.4%;
+}
+
+.side-content{
+  padding: 1%;
+}
+
+@media screen and (min-width: 1500px) {
+  .dashboard-content {
+    flex: 95%;
+  }
+}
