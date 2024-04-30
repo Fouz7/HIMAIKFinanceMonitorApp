@@ -1,0 +1,71 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  gap: 10px;
+}
+
+.login-form h2{
+    color: white;
+}
+
+.login-form input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  outline: none;
+}
+
+.login-form button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 8px 20px;
+  border: none;
+  background: rgba(0, 0, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.login-form button:hover {
+  background: rgba(0, 0, 255, 0.4);
+}
+
+hr {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.50);
+}
+
+.info{
+    color: white;
+    margin-top: 1%;
+}
+
+.info a {
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+info a:visited {
+    color: white;
+}

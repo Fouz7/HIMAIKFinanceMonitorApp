@@ -1,0 +1,47 @@
+<div class="tabs">
+    <button class="tab" [class.active]="selectedTab === 0" (click)="selectTab(0)">Income</button>
+    <button class="tab" [class.active]="selectedTab === 1" (click)="selectTab(1)">Transaction</button>
+</div>
+<div class="tab-content" *ngIf="selectedTab === 0">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Nominal</th>
+                <th>Transfer Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let income of incomeData; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{income.name}}</td>
+                <td>{{income.nominal}}</td>
+                <td>{{income.transferDate | date:'dd-MM-yyyy'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="tab-content" *ngIf="selectedTab === 1">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Debit</th>
+                <th>Credit</th>
+                <th>Balance</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of transactionData; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{transaction.debit}}</td>
+                <td>{{transaction.credit}}</td>
+                <td>{{transaction.balance}}</td>
+                <td>{{transaction.notes}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
