@@ -1,0 +1,36 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+app-card, app-minister-card {
+  width: 50%;
+  height: 100%;
+}
+
+.balance {
+  color: white;
+  background-color: rgba(0, 0, 255, 0.2);
+  border-radius: 12px;
+}
+
+.Income {
+  color: white;
+  background-color: rgba(0, 255, 0, 0.2);
+  border-radius: 12px;
+}
+
+.Outcome {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.minister {
+  color: white;
+  background-color: rgba(165, 42, 42, 0.2);
+  border-radius: 12px;
+}
