@@ -13,4 +13,12 @@ export class TransactionService {
   getAllTransaction(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.url);
   }
+
+  getAllTransactionPaginated(pageNumber: number, pageSize: number): Observable<Transaction[]> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<Transaction[]>(this.url, { params });
+  }
 }

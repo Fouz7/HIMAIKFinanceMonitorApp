@@ -26,7 +26,7 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
 
 
         [HttpGet("GetAllIncomeData")]
-        public async Task<ActionResult<IEnumerable<IncomeData>>> GetAllIncomeData(int? month, int? week, string nominalSortOrder = "asc")
+        public async Task<ActionResult<IEnumerable<IncomeData>>> GetAllIncomeData(int? month, int? week, string nominalSortOrder = "asc", int pageNumber = 1, int pageSize = 10)
         {
             var query = _context.IncomeData.AsQueryable();
 
@@ -50,6 +50,8 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
             {
                 query = query.OrderByDescending(data => data.Nominal);
             }
+            
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
             return await query.ToListAsync();
         }

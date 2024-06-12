@@ -26,6 +26,17 @@ namespace HIMAIKFinanceMonitorApp.Server.Controllers
         {
             return await _context.Transactions.ToListAsync();
         }
+        
+        [HttpGet("GetAllTransactionsPaginated")]
+        public async Task<ActionResult<IEnumerable<Transaction>>> GetAllTransactions(int pageNumber = 1, int pageSize = 10)
+        {
+            var query = _context.Transactions.AsQueryable();
+
+            // Skip the records of the previous pages and take the records of the current page
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            return await query.ToListAsync();
+        }
 
         [HttpGet("GetTransaction/{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)

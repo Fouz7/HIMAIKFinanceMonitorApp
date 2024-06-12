@@ -8,23 +8,25 @@ import {TransactionService} from "../../Services/transaction.service";
 })
 export class TransactionTableComponent {
   transactionData: any[] = [];
+  pageNumber: number = 1;
+  pageSize: number = 10;
 
   constructor(
     private transactionService: TransactionService
   ) { }
 
   ngOnInit() {
-    this.getAllTransaction();
+    this.getAllTransactionPaginated();
   }
 
-  getAllTransaction() {
-    this.transactionService.getAllTransaction()
-      .subscribe(data => {
-        console.log('DataTransaction:', data);
-        this.transactionData = data;
-      }, error => {
-        console.error('Error:', error);
-      });
-  }
+ getAllTransactionPaginated() {
+  this.transactionService.getAllTransactionPaginated(this.pageNumber, this.pageSize)
+    .subscribe(data => {
+      console.log('DataTransaction:', data);
+      this.transactionData = data;
+    }, error => {
+      console.error('Error:', error);
+    });
+}
 
 }

@@ -39,6 +39,12 @@ footer{
     color: white;
 }
 
+.footer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .balance {
     color: white;
     background-color: rgba(0, 0, 255, 0.2);
@@ -62,3 +68,12 @@ footer{
   background-color: rgba(165, 42, 42, 0.2);
   border-radius: 12px;
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+

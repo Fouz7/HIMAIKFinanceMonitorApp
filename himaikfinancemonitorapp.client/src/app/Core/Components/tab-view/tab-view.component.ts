@@ -12,6 +12,8 @@ export class TabViewComponent {
   incomeData: any[] = [];
   transactionData: any[] = [];
   selectedTab = 0
+  pageNumber: number = 1;
+  pageSize: number = 10;
 
   constructor(
     private incomeDataService: IncomeDataService,
@@ -20,11 +22,11 @@ export class TabViewComponent {
 
   ngOnInit() {
     this.getAllIncomeData();
-    this.getAllTransaction();
+    this.getAllTransactionPaginated();
   }
 
   getAllIncomeData() {
-    this.incomeDataService.getAllIncomeData('asc', '', '')
+    this.incomeDataService.getAllIncomeData('asc', this.pageNumber, this.pageSize)
       .subscribe(data => {
         console.log('DataIncome:', data);
         this.incomeData = data;
@@ -33,8 +35,8 @@ export class TabViewComponent {
       });
   }
 
-  getAllTransaction() {
-    this.transactionService.getAllTransaction()
+  getAllTransactionPaginated() {
+    this.transactionService.getAllTransactionPaginated(this.pageNumber, this.pageSize)
       .subscribe(data => {
         console.log('DataTransaction:', data);
         this.transactionData = data;
@@ -46,4 +48,17 @@ export class TabViewComponent {
   selectTab(index: number) {
     this.selectedTab = index
   }
+
+  nextPage() {
+    this.pageNumber++;
+    this.getAllIncomeData();
+  }
+
+  prevPage() {
+    if (this.pageNumber > 1) {
+      this.pageNumber--;
+      this.getAllIncomeData();
+    }
+  }
+
 }

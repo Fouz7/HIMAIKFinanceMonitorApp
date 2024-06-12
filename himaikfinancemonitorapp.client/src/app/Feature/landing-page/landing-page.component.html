@@ -1,32 +1,37 @@
 <app-header-comp/>
 <div class="container">
-    <div class="card-container">
-        <app-card
-            [cardTitle]="'Total Income'"
-            [cardContent]="totalIncome.toString()"
-            class="Income"/>
-        <app-card
-            [cardTitle]="'Total Outcome'"
-            [cardContent]="totalOutcome.toString()"
-            class="Outcome"/>
-    </div>
-    <div class="card-container">
-        <app-card
-            [cardTitle]="'Balance'"
-            [cardContent]="latestBalance.toString()"
-            class="balance"/>
-        <app-minister-card
-            [cardTitle]="'Minister of Finance'"
-            [imgContent]="'assets/aldrian.png'"
-            [cardContent]="'Aldrian'"
-            class="minister"/>
-    </div>
+  <div class="card-container">
+    <app-card
+      [cardContent]="totalIncome.toString()"
+      [cardTitle]="'Total Income'"
+      class="Income"/>
+    <app-card
+      [cardContent]="totalOutcome.toString()"
+      [cardTitle]="'Total Outcome'"
+      class="Outcome"/>
+  </div>
+  <div class="card-container">
+    <app-card
+      [cardContent]="latestBalance.toString()"
+      [cardTitle]="'Balance'"
+      class="balance"/>
+    <app-minister-card
+      [cardContent2]="'21560010'"
+      [cardContent]="'Aldrian Aryapramestu'"
+      [cardTitle]="'Minister of Finance'"
+      [imgContent]="'assets/aldrian.png'"
+      class="minister"/>
+  </div>
 </div>
 <div class="container2">
-    <app-tab-view></app-tab-view>
+  <app-tab-view></app-tab-view>
 </div>
 <footer>
-    <p>Himpunan Mahasiswa Ilmu Komputer - Universitas Tama jagakarsa</p>
+  <div class="footer">
+    <span>Himpunan Mahasiswa Ilmu Komputer</span>
+    <span>Universitas Tama jagakarsa</span>
+  </div>
+
 </footer>
 
 

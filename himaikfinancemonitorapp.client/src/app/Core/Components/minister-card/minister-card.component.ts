@@ -8,5 +8,6 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 export class MinisterCardComponent {
   @Input() cardTitle: string | undefined;
   @Input() cardContent: string | undefined;
+  @Input() cardContent2: string | undefined;
   @Input() imgContent: string | undefined;
 }

@@ -18,7 +18,13 @@ th, td {
 
 th {
   background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  color: #cacad3;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+td{
+  color: ghostwhite;
 }
 
 tr:hover {
@@ -80,4 +86,51 @@ tr:hover {
   padding: 20px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   margin-top: 2%;
+}
+
+.prevNextButton {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1%;
+}
+
+.prevNext{
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  margin-inline: 0.5%;
+  color: ghostwhite;
+}
+
+@media screen and (max-width: 768px) {
+  .tab {
+    margin: 0;
+  }
+
+  .tab-content {
+    overflow-x: auto;
+  }
+
+  table {
+    font-size: small;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+
+  th{
+    white-space: nowrap;
+  }
+
+  .no-mobile {
+    display: none;
+  }
+
+  .prevNextButton{
+    margin-top: 3%;
+  }
 }
